@@ -1,0 +1,62 @@
+import tkinter as tk
+from pathlib import Path
+
+window = tk.Tk()
+window['bg'] = '#fff1da'
+
+def b_r_s():
+    ball_teor = [float(i) for i in ball_teor_input.get().split()]
+    ball_itog = [float(i) for i in ball_itog_input.get().split()]
+    if len(ball_teor) != 0 and len(ball_itog) != 0:
+        a = sum(ball_teor)/len(ball_teor)
+        b = sum(ball_itog)/len(ball_itog)
+        sr_ball = round(((a+b)/2), 1)
+        brs = {5.0: '100', 4.9: '98-99', 4.8: '96-97', 4.7: '94-95', 4.6: '92-93', 4.5: '91', 4.4: '88-90', 4.3: '85-87', 4.2: '82-84', 4.1: '79-81', 4.0: '76-78', 3.9: '75', 3.8: '74', 3.7: '73', 3.6: '72', 3.5: '71', 3.4: '69-70', 3.3: '67-68', 3.2: '65-66', 3.1: '63-64', 3.0: '61-62'} #ключ - балл студента, значение - оценка по 100-балльной
+        if sr_ball < 3.0:
+            a = 'Студент не сдал'
+        else:
+            a = "Средний балл студента {}, что соответствует {} по 100-балльной системе".format(sr_ball, brs[sr_ball])
+    else:
+        print(ball_teor, ball_itog)
+    otstup.config(text=a, font = 'Times 14', fg = '#007266')
+
+greeting = tk.Label(text="Вас приветствует программа расчета рейтинга студентов! \n", bg = '#fff1da', fg = '#007266', font = 'Times 25')
+greeting.pack()
+
+path = Path(Path.cwd(), "logo_3.png")
+img = tk.PhotoImage(file=path)
+b = tk.Label(window, image = img)
+b.image_ref = img
+b.pack()
+
+instr =  tk.Label(text="В первой строке введите оценки студента, полученные за устные ответы на семинарских занятиях.\n"
+                                "Во второй строке введите оценки студента, полученные за устные ответы на итоговых занятиях.\n"
+                                  "Ввод осуществляется через пробел, дробные значения отделяются точкой.", bg = '#fff1da', fg = '#007266', font = 'Times 17'
+                                ) #Место под текст "Введите оценки за семестр", не забудь про pack() повсюду
+instr.pack()
+
+otstup = tk.Label(bg = '#fff1da', fg = '#078879') #Место под пустую строку
+otstup.pack()
+
+ball_teor_input = tk.Entry(width=50, bg = '#ebddc3', fg = '#007266', font = 'Times 12')#Место под поле ввода оценок
+ball_teor_input.pack()
+
+otstup = tk.Label(bg = '#fff1da', fg = '#078879') #Место под пустую строку
+otstup.pack()
+
+ball_itog_input = tk.Entry(width=50, bg = '#ebddc3', fg = '#007266', font = 'Times 12')#Место под поле ввода оценок
+ball_itog_input.pack()
+
+otstup = tk.Label(bg = '#fff1da', fg = '#078879') #Место под пустую строку
+otstup.pack()
+
+button = tk.Button(window, text='Рассчитать', command = b_r_s, width=50, bg = '#ebddc3', fg = '#007266', font = 'Times 12')#Место под кнопку "Рассчитать"
+button.pack()
+
+otstup = tk.Label(bg = '#fff1da', fg = '#078879') #Место под пустую строку
+otstup.pack()
+
+otstup = tk.Label(bg = '#fff1da', fg = '#078879') #Место под пустую строку
+otstup.pack()
+
+window.mainloop()
